@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Tambah ini untuk mobile -->
+  <title>Amplop Cinta</title>
+  <style>
+    body {
+      background-color: #ffe6f0;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    .envelope-container {
+      position: relative;
+      width: 300px;
+      height: 200px;
+      cursor: pointer;
+    }
+
+    .envelope {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: white;
+      border: 2px solid #ff69b4;
+      border-radius: 0 0 10px 10px;
+      z-index: 1;
+    }
+
+    .flap {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #fff0f5;
+      clip-path: polygon(0 0, 50% 60%, 100% 0);
+      transition: transform 1s ease;
+      transform-origin: top;
+      z-index: 2;
+    }
+
+    .heart-lock {
+      position: absolute;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 30px;
+      color: pink;
+      z-index: 3;
+    }
+
+    #photo {
+      width: 150px;
+      border-radius: 12px;
+      margin-top: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    
+    .message {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 20px;
+    }
+
+    .show .flap {
+      transform: rotateX(100deg);
+    }
+
+    .show .message {
+      display: flex;
+    }
+
+    #text {
+      margin-top: 15px;
+      text-align: center;
+      color: #e60086;
+      font-size: 18px;
+      line-height: 1.4;
+    }
+
+    .ascii-heart {
+      position: absolute;
+      white-space: pre;
+      font-size: 14px;
+      animation: floatUp 3s linear forwards;
+      pointer-events: none;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-300px) scale(1.2);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="envelope-container" onclick="openEnvelope()" id="envelopeBox">
+    <div class="envelope"></div>
+    <div class="flap"></div>
+    <div class="heart-lock">💖</div>
+  </div>
+
+  <div class="message" id="message">
+    <img id="photo" src="fotoenda2.jpg" alt="foto" />
+    <div id="text">
+      Hi sayang <br>
+      𖹭<br>
+    
+    </div>
+  </div>
+
+  <audio id="bgm" src="showmelove.mp3"></audio>
+
+  <script>
+    function openEnvelope() {
+      const box = document.getElementById('envelopeBox');
+      box.classList.add('show');
+
+      document.getElementById('message').style.display = 'flex';
+
+      showHearts();
+      document.getElementById('bgm').play();
+    }
+
+    function showHearts() {
+      const art = `
+🌹🌹           🌹🌹
+🌹🌹🌹🌹🌹🌹🌹
+🌹🌹🌹🌹🌹🌹🌹
+   🌹🌹🌹🌹🌹🌹
+ Λ 🌹🌹🌹🌹🌹
+( ˘ ᵕ ˘ 🌹🌹🌹
+ ヽ  つ＼     ／
+    UU   / 🎀 \\`;
+
+      for (let i = 0; i < 6; i++) {
+        const heart = document.createElement('div');
+        heart.className = 'ascii-heart';
+        heart.style.left = Math.random() * window.innerWidth * 0.8 + 'px';
+        heart.style.bottom = '20px';
+        heart.innerText = art;
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 3000);
+      }
+    }
+  </script>
+</body>
+</html>
